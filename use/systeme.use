@@ -1,0 +1,10 @@
+model systemeDrones
+
+class EtatSysteme end
+
+class UniteDeTemps end
+
+association Compteur between
+	EtatSysteme[1] role systeme;
+	UniteDeTemps[1] role compteurTemps
+end
