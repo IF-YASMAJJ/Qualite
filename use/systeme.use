@@ -1,10 +1,54 @@
 model systemeDrones
 
 class EtatSysteme end
-
 class UniteDeTemps end
-
-association Compteur between
-	EtatSysteme[1] role systeme;
-	UniteDeTemps[1] role compteurTemps
+class Drone end
+class Terrain end
+class Livraison end
+class Chemin end
+class Point end
+class Entrepot < Point
 end
+class Receptacle < Point
+end
+class Commande end
+class Chemin end
+class Produit end
+
+
+association CompteurTemps between
+	EtatSysteme[1] role etat;
+	UniteDeTemps[1] role temps
+end
+
+association Order between
+	UniteDeTemps[*] role pred;
+	UniteDeTemps[*] role succ;
+end
+
+association EtatDrone between
+	EtatSysteme[*] role etat;
+	Drone[*] role drone;
+end
+
+association DroneLivraison between
+	Drone[0..1] role drone;
+	Livraison[0..1] role livraison
+end
+
+association DroneTerrain between
+	Drone[1] role drone;
+	Terrain[*] role Terrain;
+end
+
+association DroneLivraison between
+	Drone[0..1] role Livraison;
+	Livraison[0..1] role Drone;
+end
+
+association LivraisonChemin between
+	Livraison[1] role livraison;
+	Chemin[1] role chemin;
+end
+
+

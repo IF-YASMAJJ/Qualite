@@ -1,5 +1,6 @@
+reset
 open systeme.use
-!create systeme : EtatSysteme
-!create temps : UniteDeTemps
-!insert (systeme, temps) into Compteur
+!create s1 : EtatSysteme
+!create t1 : UniteDeTemps
+!insert (s1,t1) into Compteur
 check
