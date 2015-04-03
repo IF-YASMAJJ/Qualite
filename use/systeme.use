@@ -51,4 +51,27 @@ association LivraisonChemin between
 	Chemin[1] role chemin;
 end
 
+association DroneTerrain between
+	Terrain[1] role terrain;
+	Drone[*] role drone;
+end
 
+association TerrainPoint between
+	Terrain[1] role terrain;
+	Point[*] role point;
+end
+
+association TerrainPoint between
+	Terrain[1] role terrain;
+	Point[*] role point;
+end
+
+association LivraisonCommande between
+	Livraison[1] role livraison;
+	Commande[1] role commande;
+end
+
+association CommandeProduit between
+	Produit[1] role produit;
+	Commande[*] role commande;
+end
