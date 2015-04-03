@@ -16,7 +16,7 @@ class Chemin end
 class Produit end
 
 
-association CompteurTemps between
+association EtatSystemeUniteDeTemps between
 	EtatSysteme[1] role etat;
 	UniteDeTemps[1] role temps
 end
@@ -68,10 +68,15 @@ end
 
 association LivraisonCommande between
 	Livraison[1] role livraison;
-	Commande[1] role commande;
+	Commande[1..n] role commande;
 end
 
 association CommandeProduit between
-	Produit[1] role produit;
+	Produit[*] role produit;
 	Commande[*] role commande;
 end
+
+constraints
+
+--TODO : traduire invariants
+context 

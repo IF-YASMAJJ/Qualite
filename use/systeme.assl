@@ -1,0 +1,17 @@
+procedure genWorld(temps : Integer, maxDrones : Integer)
+var	unitesTemps : Sequence(UniteDeTemps), etats : Sequence(EtatSysteme),
+	drones : Sequence(Drone);
+
+begin
+	nbUnitesTemps := Try([Sequence{1..temps}]);
+	nbEtats := Try([Sequence{1..temps}]);
+	nbDrones := Try([Sequence{1..maxDrones}]);
+
+	unitesTemps := CreateN(UniteDeTemps, [nbUnitesTemps]);
+	etats := CreateN(EtatSysteme, [nbEtats]);
+	drones := CreateN(Drone, [nbDrones]);
+	
+	Try(Order, [UniteDeTemps], [UniteDeTemps]);
+	Try(EtatSystemeUniteDeTemps, [EtatSysteme], [UniteDeTemps]);
+	Try(EtatDrone, [EtatSysteme], [Drone]);
+end;
