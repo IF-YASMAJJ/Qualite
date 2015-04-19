@@ -22,7 +22,6 @@ class Terrain
 attributes
 	RNB : Integer
 	DNB : Integer
-	listePoints : list<Point>
 end
 
 class Livraison 
@@ -66,10 +65,6 @@ association Order between
 	UniteDeTemps[*] role succ;
 end
 
-association EtatDrone between
-	EtatSysteme[*] role etat;
-	Drone[*] role drone;
-end
 
 association DroneLivraison between
 	Drone[0..1] role drone;
@@ -105,17 +100,52 @@ association CheminPoint between
 	Chemin[*] role chemin;
 	Point[*] role point;
 end
+
+association EtatLivraison between
+	EtatSysteme[*] role etat;
+	Livraison[*] role livraison;
+end
 --Fin de définition des associations
+
+--Définition des associationclass
+associationclass EtatDrone between
+	EtatSysteme[*];
+	Drone[*];
+attributes
+	positionDrone : Point
+	dureeDeVie : Integer
+	etat : String
+	livraisonDrone : Livraison
+end
+
+associationclass EtatPoint between
+	EtatSysteme[*];
+	Point[*];
+attributes
+	estOccupe : Boolean
+end
+
+associationclass EtatReceptacle < EtatPoint between
+	EtatSysteme[*];
+	Receptacle[*];
+attributes
+	nbProduits : Integer
+end
+
+--Fin de définition des associationclass
+
 
 --Définition des contraintes-invariants
 constraints
 context Terrain inv oneTerrain: Terrain.allInstances->size=1
 
+--Pre/Post conditions
 context Drone::seDeplacer(p : Point)
 	pre deplacerPre1 : deplacementPossible
 	--post : TODO
 
 --context Drone::testerDeplacement(p : Point)
 --	pre 
+--Fin des Pre/Post conditions
 
 --Fin de définition des contraintes-invariants
