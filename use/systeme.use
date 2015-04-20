@@ -143,6 +143,8 @@ constraints
 
 context Terrain inv oneTerrain: Terrain.allInstances->size=1
 
+
+
 --Pre/Post conditions
 context Drone::seDeplacer(p : Point)
 	pre deplacerPre1 : deplacementPossible
