@@ -1,9 +1,13 @@
-model systemeDrones
+
+model SystemeDrones
+
+--Énumération pour l'état d'un drone
+enum EtatDuDrone {Attente, Livraison, Rechargement}
 
 --Définition des classes
 class EtatSysteme end
 
-class UniteDeTemps
+class UniteDeTemps 
 attributes
 	temps : Integer
 end
@@ -114,7 +118,7 @@ associationclass EtatDrone between
 attributes
 	positionDrone : Point
 	dureeDeVie : Integer
-	etat : String
+	etat : EtatDuDrone
 	livraisonDrone : Livraison
 end
 
@@ -131,12 +135,12 @@ associationclass EtatReceptacle < EtatPoint between
 attributes
 	nbProduits : Integer
 end
-
 --Fin de définition des associationclass
 
 
 --Définition des contraintes-invariants
 constraints
+
 context Terrain inv oneTerrain: Terrain.allInstances->size=1
 
 --Pre/Post conditions

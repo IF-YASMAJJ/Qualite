@@ -1,17 +1,54 @@
-procedure genWorld(temps : Integer, maxDrones : Integer)
-var	unitesTemps : Sequence(UniteDeTemps), etats : Sequence(EtatSysteme),
-	drones : Sequence(Drone);
+
+procedure genWorld(maxTemps : Integer, maxDrones : Integer, nombreLivraisons : Integer, nombrePoints : Integer, nombreReceptacles : Integer, nombreCommandes : Integer, nombreProduits : Integer)
+var	etats : Sequence(EtatSysteme),
+	timeCount : Sequence(UniteDeTemps),
+	drones : Sequence(Drone),
+	terrain : Sequence(Terrain),
+	livraisons : Sequence(Livraison),
+	chemins : Sequence(Chemin),
+	points : Sequence(Point),
+	entrepot : Sequence(Entrepot),
+	receptacles : Sequence(Receptacle),
+	commandes : Sequence(Commande),
+	produits : Sequence(Produit),
+	
+	nbTemps : Integer,
+	nbDrones : Integer,
+	nbLivraisons : Integer,
+	nbPoints : Integer,
+	nbReceptacles : Integer,
+	nbCommandes : Integer,
+	nbProduits : Integer;
 
 begin
-	nbUnitesTemps := Try([Sequence{1..temps}]);
-	nbEtats := Try([Sequence{1..temps}]);
-	nbDrones := Try([Sequence{1..maxDrones}]);
-
-	unitesTemps := CreateN(UniteDeTemps, [nbUnitesTemps]);
-	etats := CreateN(EtatSysteme, [nbEtats]);
-	drones := CreateN(Drone, [nbDrones]);
-	
-	Try(Order, [UniteDeTemps], [UniteDeTemps]);
-	Try(EtatSystemeUniteDeTemps, [EtatSysteme], [UniteDeTemps]);
-	Try(EtatDrone, [EtatSysteme], [Drone]);
+  nbTemps := Try([Sequence{1..maxTemps}]);
+  nbDrones := Try([Sequence{1..maxDrones}]);
+  nbLivraisons := Try([Sequence{nombreLivraisons}]);
+  nbPoints := Try([Sequence{nombrePoints}]);
+  nbReceptacles := Try([Sequence{nombreReceptacles}]);
+  nbCommandes := Try([Sequence{nombreCommandes}]);
+  nbProduits := Try([Sequence{nombreProduits}]);
+  
+  etats := CreateN(EtatSysteme, [nbTemps]);
+  timeCount := CreateN(UniteDeTemps, [nbTemps]);
+  drones := CreateN(Drone, [nbDrones]);
+  terrain := CreateN(Terrain, [1]);
+  livraisons := CreateN(Livraison, [nbLivraisons]);
+  chemins := CreateN(Chemin, [nbLivraisons]);
+  points := CreateN(Point, [nbPoints]);
+  entrepot := CreateN(Entrepot, [1]);
+  receptacles := CreateN(Receptacle, [nbReceptacles]);
+  commandes := CreateN(Commande, [nbCommandes]);
+  produits := CreateN(Produit, [nbProduits]);
+  
+  Try(EtatSystemeUniteDeTemps, [etats], [timeCount]);
+  Try(Order, [timeCount], [timeCount]);
+  Try(DroneLivraison, [drones], [livraisons]);
+  Try(LivraisonChemin, [livraisons], [chemins]);
+  Try(DroneTerrain, [terrain], [drones]);
+  Try(TerrainPoint, [terrain], [points]);
+  Try(LivraisonCommande, [livraisons], [commandes]);
+  Try(CommandeProduit, [produits], [commandes]);
+  Try(CheminPoint, [chemins], [points]);
+  Try(EtatLivraison, [etats], [livraisons]);
 end;
