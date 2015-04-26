@@ -1,6 +1,6 @@
+
 reset
 open systeme.use
-!create s1 : EtatSysteme
-!create t1 : UniteDeTemps
-!insert (s1,t1) into EtatSystemeUniteDeTemps
-check
+gen start systeme.assl genWorld(10,5,2,15,5,4,5)
+gen result
+gen result accept

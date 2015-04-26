@@ -44,18 +44,19 @@ begin
 	--Initialisation
 	for r:Receptacle in [receptacles]
   		begin
-		[r].RCAP:=100;
+		[r].RCAP:=[100];
 		end;
 	
 	for t:Terrain in [terrain]
 		begin
-		[t].RNB = [nbReceptacles];
-		[t].DNB = [nbDrones];
+		[t].RNB := [nbReceptacles];
+		[t].DNB := [nbDrones];
 		end;
 
  	for p:Point in [points]
 		begin
-		--[p].coordX = := Any([Sequence]);
+		[p].coordX := Any([Sequence{1..nbPoints}]);
+		[p].coordY := Any([Sequence{1..nbPoints}]);
 		end;
 
 
